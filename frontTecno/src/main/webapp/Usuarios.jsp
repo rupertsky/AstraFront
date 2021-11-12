@@ -22,36 +22,37 @@
 				<h6>En este panel podras
 					gestionar los datos de los usuarios del sistema</h6>
 				<div>
-					<form class="form-sign formulario" id="formulario" method="get" action="Controlador">
-						<div class="form-group">
+					<form class="form-sign needs-validation" id="formulario" method="get" action="Controlador">
+						
+						<div class="form-group" id="group__cedula">
 							<input type="hidden" name="menu" value="Usuarios"> 
 							<input type="hidden" name="txtid" value="${usuarioSeleccionado.get_id()}"> 
 							<label>Cedula:</label>
 							<input type="text" name="txtcedula" class="form-control"
-								value="${usuarioSeleccionado.getCedula_usuario()}">
+								value="${usuarioSeleccionado.getCedula_usuario()}" minlength="4" maxlength="14" required>
 						</div>
-						<div class="form-group">
+						<div class="form-group" id="group__nombre">
 							<label>Nombre:</label> 
 							<input type="text" name="txtnombre"	class="form-control" 
-								value="${usuarioSeleccionado.getNombre_usuario()}">
+								value="${usuarioSeleccionado.getNombre_usuario()}" minlength="4" maxlength="30" required>
 						</div>
-						<div class="form-group">
+						<div class="form-group" id="group__email">
 							<label>Email:</label> 
-							<input type="text" name="txtemail" class="form-control"
-								value="${usuarioSeleccionado.getEmail_usuario()}">
+							<input email="text" name="txtemail" class="form-control"
+								value="${usuarioSeleccionado.getEmail_usuario()}" required>
 						</div>
-						<div class="form-group">
+						<div class="form-group" id="group__usuario">
 							<label>Usuario:</label> 
 							<input type="text" name="txtusuario" class="form-control" 
-								value="${usuarioSeleccionado.getUsuario()}">
+								value="${usuarioSeleccionado.getUsuario()}" minlength="4" maxlength="14" required>
 						</div>
-						<div class="form-group">
+						<div class="form-group" id="group__password">
 							<label>Password:</label> 
 							<input type="password" name="txtpassword" class="form-control"
-								value="${usuarioSeleccionado.getPassword()}">
+								value="${usuarioSeleccionado.getPassword()}" minlength="4" maxlength="14" required>
 						</div>
 						<input type="submit" class="btn btn-primary mt-2" name="accion" value="Agregar"> 
-							<input type="submit" class="btn btn-success mt-2" name="accion" value="Actualizar">
+						<input type="submit" class="btn btn-success mt-2" name="accion" value="Actualizar">
 					</form>
 				</div>
 			</div>

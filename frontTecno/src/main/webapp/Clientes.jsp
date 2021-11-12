@@ -27,27 +27,27 @@
 							<input type="hidden" name="menu" value="Clientes"> 
 							<label>Cedula:</label>
 							<input type="number" name="txtcedula" class="form-control" 
-							value="${clienteSeleccionado.getCedula_cliente()}" required="required">
+							value="${clienteSeleccionado.getCedula_cliente()}" minlength="4" maxlength="14" required>
 						</div>
 						<div class="form-group">
 							<label>Nombre:</label> 
 							<input type="text" name="txtnombre" class="form-control" 
-							value="${clienteSeleccionado.getNombre_cliente()}" required="required">
+							value="${clienteSeleccionado.getNombre_cliente()}" minlength="4" maxlength="30" required>
 						</div>
 						<div class="form-group">
 							<label>Email:</label> 
-							<input type="email" name="txtemail" class="form-control" 
-							value="${clienteSeleccionado.getEmail_cliente()}" required="required">
+							<input email="email" name="txtemail" class="form-control" 
+							value="${clienteSeleccionado.getEmail_cliente()}" minlength="4" maxlength="14" required>
 						</div>
 						<div class="form-group">
 							<label>Dirección:</label> 
 							<input type="text" name="txtdireccion" class="form-control" 
-							value="${clienteSeleccionado.getDireccion_cliente()}" required="required">
+							value="${clienteSeleccionado.getDireccion_cliente()}" minlength="4" maxlength="14" required>
 						</div>
 						<div class="form-group">
 							<label>Teléfono:</label> 
 							<input type="number" name="txttelefono" class="form-control" 
-							value="${clienteSeleccionado.getTelefono_cliente()}" required="required">
+							value="${clienteSeleccionado.getTelefono_cliente()}" minlength="4" maxlength="14" required>
 						</div>
 
 						<input type="submit" class="btn btn-primary mt-2" name="accion" value="Agregar"> 
