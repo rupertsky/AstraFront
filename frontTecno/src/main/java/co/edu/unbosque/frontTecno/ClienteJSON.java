@@ -20,7 +20,7 @@ import co.edu.unbosque.frontTecno.Clientes;
 public class ClienteJSON {
 	
 	private static URL url;
-	private static String sitio = "http://localhost:5000/";	
+	private static String sitio = "http://localhost:8081/";	
 	
 	//*********Métodos que permite mostrar los registros de la tabla Clientes**************
 	public static ArrayList<Clientes> parsingClientes(String json) throws ParseException {
@@ -85,7 +85,7 @@ public class ClienteJSON {
 		http.setRequestProperty("Content-Type", "application/json");
 		
 		String data = "{" 
-				+ "\",\"cedula_cliente\":\"" + cliente.getCedula_cliente()
+				+ "\",\"cedula_cliente\":\"" + String.valueOf(cliente.getCedula_cliente())	
 				+ "\",\"nombre_cliente\": \""+ cliente.getNombre_cliente() 		
 				+ "\",\"email_cliente\": \"" + cliente.getEmail_cliente() 
 				+ "\",\"direccion_cliente\":\"" + cliente.getDireccion_cliente()
@@ -124,8 +124,8 @@ public class ClienteJSON {
 				+ "\",\"nombre_cliente\": \"" + cliente.getNombre_cliente() 
 				+ "\",\"email_cliente\": \"" + cliente.getEmail_cliente()
 				+ "\",\"direccion_cliente\":\"" + cliente.getDireccion_cliente()
-				+ "\",\"telefono_cliente\":\"" + cliente.getTelefono_cliente() + 
-				"\"}"; 
+				+ "\",\"telefono_cliente\":\"" + cliente.getTelefono_cliente() 
+				+ "\"}"; 
 		
 		byte[] out = data.getBytes(StandardCharsets.UTF_8);
 		OutputStream stream = http.getOutputStream();

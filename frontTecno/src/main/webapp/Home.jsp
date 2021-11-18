@@ -41,6 +41,6 @@
            </ul>
          </section>
         <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-        <script defer src="./js/home.js"></script>
+        <script defer src="js/home.js"></script>
 </body>
 </html>

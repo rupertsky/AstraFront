@@ -16,7 +16,22 @@ import co.edu.unbosque.frontTecno.Usuarios;
 @WebServlet("/Controlador")
 public class Controlador extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
+	public void validarCedula(String id, HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{		
+		try {
+			ArrayList<Usuarios> listac = UsuarioJSON.getJSON();
+			for(Usuarios usuarios: listac) {				
+				if(usuarios.getCedula_usuario().equals(id)) {
+					request.setAttribute("usuarioSeleccionado1", usuarios);					
+				}
+			}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		}
+			
 	public Controlador() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -29,6 +44,38 @@ public class Controlador extends HttpServlet {
 		String accion=request.getParameter("accion");
 		
 		switch (menu) {
+			case "New_usuarios":
+				if(accion.equals("Agregar")) {
+					String id=request.getParameter("txtcedula");
+				
+					this.validarCedula(id, request, response);
+					System.out.println("Usuario en uso");
+					request.getRequestDispatcher("/New_usuarios.jsp").forward(request, response);
+					
+				} else if (accion.equals("Agregar")) {
+					Usuarios usuario = new Usuarios();
+					usuario.setCedula_usuario(request.getParameter("txtcedula"));
+					usuario.setNombre_usuario(request.getParameter("txtnombre"));
+					usuario.setEmail_usuario(request.getParameter("txtemail"));
+					usuario.setUsuario(request.getParameter("txtusuario"));
+					usuario.setPassword(request.getParameter("txtpassword"));
+					int respuesta=0;
+					try {
+						respuesta = UsuarioJSON.postJSON(usuario);
+						PrintWriter write = response.getWriter();
+						
+						if (respuesta==200) {							
+							request.getRequestDispatcher("/Inicio.jsp").forward(request, response);
+						} else {
+							write.println("Error: " + respuesta);
+						}
+						write.close();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				break;
+				
 			case "Principal":
 				request.getRequestDispatcher("/Home.jsp").forward(request, response);
 			break;
@@ -159,7 +206,7 @@ public class Controlador extends HttpServlet {
 						int respuesta=0;
 						try {
 							respuesta = ClienteJSON.putJSON(cliente, cliente.get_id());
-							PrintWriter write = response.getWriter();
+							PrintWriter write = response.getWriter();						
 							if (respuesta==200) {
 								request.getRequestDispatcher("Controlador?menu=Clientes&accion=Listar")
 								.forward(request, response);
@@ -191,6 +238,8 @@ public class Controlador extends HttpServlet {
 							respuesta = ClienteJSON.deleteJSON(id);
 							PrintWriter write = response.getWriter();
 							if (respuesta==200) {
+								PrintWriter out = response.getWriter();
+									
 								request.getRequestDispatcher("Controlador?menu=Clientes&accion=Listar")
 								.forward(request, response);
 							} else {
@@ -208,6 +257,98 @@ public class Controlador extends HttpServlet {
 				break;
 				
 				case "Productos":
+					if (accion.equals("Listar")) {
+						try {
+							ArrayList<Productos> lista = ProductoJSON.getJSON();
+							request.setAttribute("listaProductos", lista);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}else if(accion.equals("Agregar")) {
+						Productos producto = new Productos();
+						producto.setCodigo_producto(request.getParameter("txtcodigo"));
+						producto.setNombre_producto(request.getParameter("txtnombre"));
+						producto.setNit_proveedor(request.getParameter("txtnit"));
+						producto.setPrecio_compra(Double.parseDouble(request.getParameter("txtprecioproducto")));
+						producto.setIva_compra(Double.parseDouble(request.getParameter("txtiva")));
+						producto.setPrecio_venta(Double.parseDouble(request.getParameter("txtprecioventa")));
+						System.out.println(producto.getCodigo_producto());
+						System.out.println(producto.getNombre_producto());
+						System.out.println(producto.getNit_proveedor());
+						System.out.println(producto.getPrecio_compra());
+						System.out.println(producto.getIva_compra());
+						System.out.println(producto.getPrecio_venta());
+						int respuesta=0;
+						try {
+							respuesta = ProductoJSON.postJSON(producto);
+							PrintWriter write = response.getWriter();
+							if (respuesta==200) {
+								System.out.println("No esta agregando");
+								request.getRequestDispatcher("Controlador?menu=Productos&accion=Listar")
+								.forward(request, response);
+							} else {
+								write.println("Error: " + respuesta);
+							}
+							write.close();
+						} catch (Exception e) {
+							System.out.println("causa un error");
+							e.printStackTrace();
+						}
+					}else if(accion.equals("Actualizar")) {
+						Productos producto = new Productos();
+						producto.set_id(request.getParameter("txtid"));
+						producto.setCodigo_producto(request.getParameter("txtcodigo"));
+						producto.setNombre_producto(request.getParameter("txtnombre"));
+						producto.setNit_proveedor(request.getParameter("txtnit"));
+						producto.setPrecio_compra(Double.parseDouble(request.getParameter("txtprecioproducto")));
+						producto.setIva_compra(Double.parseDouble(request.getParameter("txtiva")));
+						producto.setPrecio_venta(Double.parseDouble(request.getParameter("txtprecioventa")));
+						int respuesta=0;
+						try {
+							respuesta = ProductoJSON.putJSON(producto, producto.get_id());
+							PrintWriter write = response.getWriter();
+							if (respuesta==200) {
+								request.getRequestDispatcher("Controlador?menu=Productos&accion=Listar")
+								.forward(request, response);
+							} else {
+								write.println("Error: " + respuesta);
+							}
+							write.close();
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}else if(accion.equals("Cargar")) {
+						String id= request.getParameter("id");
+						try {
+							ArrayList<Productos> lista1 = ProductoJSON.getJSON();
+							for (Productos productos:lista1){
+								if (productos.getCodigo_producto().equals(id)) {
+									request.setAttribute("productoSeleccionado", productos);
+									request.getRequestDispatcher("Controlador?menu=Productos&accion=Listar")
+									.forward(request, response);
+								}
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}else if(accion.equals("Eliminar")) {
+						String id= request.getParameter("id");
+						int respuesta=0;
+						try {
+							respuesta = ProductoJSON.deleteJSON(id);
+							PrintWriter write = response.getWriter();
+							if (respuesta==200) {
+								System.out.println("Se elimino");
+								request.getRequestDispatcher("Controlador?menu=Productos&accion=Listar")
+								.forward(request, response);
+							} else {
+								write.println("Error: " + respuesta);
+							}
+						} catch (Exception e) {
+								e.printStackTrace();
+						}					
+					}
+						
 					request.getRequestDispatcher("/Productos.jsp").forward(request, response);
 				break;
 				

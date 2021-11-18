@@ -24,7 +24,8 @@
 					<form class="form-sign" method="get" action="Controlador">
 
 						<div class="form-group">
-							<input type="hidden" name="menu" value="Clientes"> 
+							<input type="hidden" name="menu" value="Clientes">
+							<input type="hidden" name="txtid" value="${clienteSeleccionado.get_id()}">
 							<label>Cedula:</label>
 							<input type="number" name="txtcedula" class="form-control" 
 							value="${clienteSeleccionado.getCedula_cliente()}" minlength="4" maxlength="14" required>

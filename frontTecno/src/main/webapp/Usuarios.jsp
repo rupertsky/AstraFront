@@ -78,10 +78,14 @@
 							<td>${lista.getUsuario()}</td>
 							<td>${lista.getPassword()}</td>
 							<td>
-								<a class="btn btn-warning m-2" href="Controlador?menu=Usuarios&accion=Cargar&id=${lista.getCedula_usuario()}">
-									Editar</a> 
-								<a class="btn btn-danger m-2" href="Controlador?menu=Usuarios&accion=Eliminar&id=${lista.get_id()}">
-									Eliminar</a>
+								<a class="btn btn-warning m-2" 
+									href="Controlador?menu=Usuarios&accion=Cargar&id=${lista.getCedula_usuario()}">
+									Editar
+								</a> 
+								<a class="btn btn-danger m-2" 
+									href="Controlador?menu=Usuarios&accion=Eliminar&id=${lista.get_id()}">
+									Eliminar
+								</a>
 							</td>
 						</tr>
 					</c:forEach>

@@ -70,14 +70,10 @@
                 </a>   
             </nav>
         </div>
-
         <div class="m-2" style="height: 800px;">
-            <iframe style="height: 100%; width: 100%; border: none" name="myFrame" src="Home.jsp">
-                
+            <iframe style="height: 100%; width: 100%; border: none" name="myFrame" src="Home.jsp">                
             </iframe>
-        </div>
-
-        
+        </div>        
         <!-- ===== IONICONS ===== -->
         <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
         
