@@ -81,7 +81,7 @@ public class UsuarioJSON {
 		http.setRequestProperty("Content-Type", "application/json");
 		
 		String data = "{" 
-				+ "\"cedula_usuario\":\"" + String.valueOf(usuario.getCedula_usuario())				
+				+ "\"cedula_usuario\":\"" + usuario.getCedula_usuario()				
 				+ "\",\"nombre_usuario\": \"" + usuario.getNombre_usuario() 
 				+ "\",\"email_usuario\": \""  + usuario.getEmail_usuario() 
 				+ "\",\"password\":\"" + usuario.getPassword() 

@@ -84,13 +84,19 @@ public class ProductoJSON {
 		http.setRequestProperty("Content-Type", "application/json");
 		
 		String data = "{" 
-				+ "\",\"codigo_producto\":\"" + producto.getCodigo_producto()	
+				+ "\"codigo_producto\":\"" + producto.getCodigo_producto()	
 				+ "\",\"nombre_producto\": \""+ producto.getNombre_producto()		
 				+ "\",\"nit_proveedor\": \"" + producto.getNit_proveedor() 
 				+ "\",\"precio_compra\":\"" + producto.getPrecio_compra()
 				+ "\",\"iva_compra\":\"" + producto.getIva_compra()
 				+ "\",\"precio_venta\":\"" + producto.getPrecio_venta()
 				+ "\"}";
+		System.out.println(producto.getCodigo_producto());
+		System.out.println(producto.getNombre_producto());
+		System.out.println(producto.getNit_proveedor());
+		System.out.println(producto.getPrecio_compra());
+		System.out.println(producto.getIva_compra());
+		System.out.println(producto.getPrecio_venta());
 		
 		byte[] out = data.getBytes(StandardCharsets.UTF_8);
 		OutputStream stream = http.getOutputStream();

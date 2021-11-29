@@ -53,13 +53,17 @@
                             <ion-icon name="document-text-outline" class="nav__icon"></ion-icon>                           
                             <span class="nav__name">Productos</span>
                         </a>                      
-                        <a href="Controlador?menu=Ventas&accion=Listar" target="myFrame" class="nav__link" onclick="return validarMenu('ventas')">
+                        <a href="Controlador?menu=Ventas&accion=default&UsuarioActivo=${usuario.getCedula_usuario()}" target="myFrame" class="nav__link" onclick="return validarMenu('ventas')">
                             <ion-icon name="grid-outline" class="nav__icon"></ion-icon>                           
                             <span class="nav__name">Ventas</span>
                         </a>
                         <a href="Controlador?menu=Reportes&accion=Listar" target="myFrame" class="nav__link" onclick="return validarMenu('reportes')">
                             <ion-icon name="grid-outline" class="nav__icon"></ion-icon>                           
                             <span class="nav__name">Reportes</span>
+                        </a>
+                        <a href="Controlador?menu=Consolidado&accion=Listar" target="myFrame" class="nav__link" onclick="return validarMenu('consolidado')">
+                            <ion-icon name="grid-outline" class="nav__icon"></ion-icon>                           
+                            <span class="nav__name">Consolidado</span>
                         </a>
                     </div>
                 </div>
@@ -70,7 +74,7 @@
                 </a>   
             </nav>
         </div>
-        <div class="m-2" style="height: 800px;">
+        <div class="m-2" style="height: 800px" >
             <iframe style="height: 100%; width: 100%; border: none" name="myFrame" src="Home.jsp">                
             </iframe>
         </div>        

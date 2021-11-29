@@ -85,7 +85,7 @@ public class ClienteJSON {
 		http.setRequestProperty("Content-Type", "application/json");
 		
 		String data = "{" 
-				+ "\",\"cedula_cliente\":\"" + String.valueOf(cliente.getCedula_cliente())	
+				+ "\"cedula_cliente\":\"" + String.valueOf(cliente.getCedula_cliente())	
 				+ "\",\"nombre_cliente\": \""+ cliente.getNombre_cliente() 		
 				+ "\",\"email_cliente\": \"" + cliente.getEmail_cliente() 
 				+ "\",\"direccion_cliente\":\"" + cliente.getDireccion_cliente()

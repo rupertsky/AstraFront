@@ -38,7 +38,7 @@
 						</div>
 						<div class="form-group" id="group__email">
 							<label>Email:</label> 
-							<input email="text" name="txtemail" class="form-control"
+							<input type="text" name="txtemail" class="form-control"
 								value="${usuarioSeleccionado.getEmail_usuario()}" required>
 						</div>
 						<div class="form-group" id="group__usuario">

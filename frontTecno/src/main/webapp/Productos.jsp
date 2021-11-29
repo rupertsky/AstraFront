@@ -10,7 +10,7 @@
 	rel="stylesheet"
 	integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="./css/productos.css">
+<link rel="stylesheet" href="./css/usuarios.css">
 <title>Creacion de Productos</title>
 </head>
 <body>
@@ -22,7 +22,6 @@
 					gestionar los datos de los productos del sistema</h6>
 				<div>
 					<form class="form-sign" method="get" action="Controlador">
-
 						<div class="form-group">
 							<input type="hidden" name="menu" value="Productos"> 
 							<input type="hidden" name="txtid" value="${productoSeleccionado.get_id()}">
@@ -63,7 +62,7 @@
 						<form action="http://localhost:8082/api/productos/import" method="post" enctype="multipart/form-data">
 							<h4 class="card-title">Importar Archivo CSV:</h4>						
 							<input type="file" name="file" class="form-control" id="archivoInput" onchange="return validarExt()">
-							<input type="submit" class="btn btn-primary" value="Cargar">						
+							<input type="submit" class="btn btn-primary mt-2" value="Cargar">						
 						</form>
 					</div>
 				</div>
