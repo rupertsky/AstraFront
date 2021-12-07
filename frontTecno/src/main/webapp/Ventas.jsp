@@ -13,11 +13,31 @@
         <div class="row">
             <div class="col-md-5 seccion1">
             <form method="get" action="Controlador">
+	            <div class="card">
+	            	<div class="logo mt-4 mb-4">
+	            		<img src="img/icon.jpg" class="icon" alt="100" width="100"/>
+	            	</div>
+	            	<div class="card-body">
+	            		<div class="form-group d-flex">
+	            			<div class="col-sm-5 d-flex">
+	            				<input type="date" name="fecha" class="form-control" value="${fechaSeleccionada}">
+	            			</div>
+	            			<div class="col-sm-3">
+	            				<label>Seleccione la ciudad</label>            				
+	            			</div>
+	            			<div class="select col-sm-4">
+	            				<select name="ciudad" class="form-select">
+	            					<option>${ciudadSeleccionada}</option>
+	            					<option value="Bogota">Bogota</option>
+	            					<option value="Cali">Cali</option>
+	            					<option value="Medellin">Medellin</option>
+	            				</select>            				
+	            			</div>
+	            		</div>
+	            	</div>
+	            </div> 
                 <div class="card">
                     <div class="card-body">
-	                    	<div class="logo mt-4 mb-4">
-	                    		<img src="img/icon.jpg" class="icon" alt="100" width="100"/>
-	                    	</div>
                         <div class="form-group">
 	                      <h4 class="card-title" style="color: white;">Datos Clientes</h4>
 	                  </div>
@@ -52,7 +72,7 @@
                                    placeholder="codigo producto" 
                                    value="${productoSeleccionado.getCodigo_producto()}">
                                  <input type="submit" name="accion" value="BuscarProducto" 
-                                    class="btn btn-primary">
+                                    class="btn btn-primary" >
 	                      </div>
                             <div class="col-sm-6">
 	                        <input type="text" name="nombreproducto" class="form-control" 
@@ -68,7 +88,7 @@
    	                         </div>
    	                         <div class="col-sm-3">
 	                            <input type="number" name="cantidadproducto" 
-                                      class="form-control" placeholder="Cantidad" required="required">
+                                      class="form-control" placeholder="Cantidad" Value="1">
    	                         </div>
  	                         <div class="col-sm-3">
 	                             <input type="text" name="ivaproducto" class="form-control"
@@ -77,8 +97,10 @@
 	                         </div>
 	                    </div>
                           <div class="form-group d-flex">
-	                       <input type="submit" name="accion" value="AgregarProducto"
-                                class="btn btn-primary">
+                          
+	                      <input type="submit" name="accion" value="AgregarProducto"
+                                class="btn btn-primary" >
+                                
                           </div>
                    </div>
                 </div>

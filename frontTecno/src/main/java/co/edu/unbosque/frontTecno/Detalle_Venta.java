@@ -2,11 +2,11 @@ package co.edu.unbosque.frontTecno;
 
 public class Detalle_Venta {
 	
-	private Integer codigo_detalle_venta;
-	private String nombre_producto;
+	private Integer codigo_detalle_venta;	
 	private Long codigo_venta;
 	private String codigo_producto;
 	private Integer cantidad_producto;
+	private String nombre_producto;
 	private Double valor_total;
 	private Double valor_venta;
 	private Double valor_iva;

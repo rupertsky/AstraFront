@@ -61,7 +61,7 @@
                             <ion-icon name="grid-outline" class="nav__icon"></ion-icon>                           
                             <span class="nav__name">Reportes</span>
                         </a>
-                        <a href="Controlador?menu=Consolidado&accion=Listar" target="myFrame" class="nav__link" onclick="return validarMenu('consolidado')">
+                        <a href="Controlador?menu=Consolidado&accion=default" target="myFrame" class="nav__link" onclick="return validarMenu('consolidado')">
                             <ion-icon name="grid-outline" class="nav__icon"></ion-icon>                           
                             <span class="nav__name">Consolidado</span>
                         </a>

@@ -15,6 +15,7 @@ const validarMenu = (m) => {
 			break;
 		case "ventas":
 		case "reportes":
+		case "consolidado":
 			mensaje.innerHTML = "Bogota";
 			break;
 	}

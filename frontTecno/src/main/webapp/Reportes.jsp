@@ -95,53 +95,32 @@ crossorigin="anonymous">
 						<thead class="thead-dark">
 						<tr>
 							<th scope="col">Código Ventas</th>
-							<th scope="col">Cédula Cliente</th>
-							<th scope="col">Cédula Usuario</th>
+							<th scope="col">Nombre Cliente</th>							
 							<th scope="col">Valor Ventas</th>
 							<th scope="col">Valor Iva</th>
 							<th scope="col">Valor Total</th>
+							<th scope="col">Total Ventas</th>
 						</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="lista" items="${listaVentas}">
 								<tr>
-									<td>${lista.getCodigo_venta()}</td>
+									<td>${lista.getCodigo_venta()}</td>									
 									<td>${lista.getCedula_cliente()}</td>
-									<td>${lista.getCedula_usuario()}</td>	
 									<td>${lista.getValor_venta()}</td>								
 									<td>${lista.getIva_venta()}</td>
 									<td>${lista.getValor_venta()}</td>
-									<td></td>
+									<td>${lista.getTotal_venta()}</td>
 								</tr>
-							</c:forEach>				
-						</tbody>
-					</c:if>
-					<c:if test="${opcion==4}">	
-					<h5 class="m-2" style="color: white;" >Detalle Ventas</h5>				
-						<thead class="thead-dark">
-						<tr>
-							<th scope="col">Código Venta</th>
-							<th scope="col">Código Producto</th>
-							<th scope="col">Cantidad Producto</th>
-							<th scope="col">Valor Venta</th>
-							<th scope="col">Valor Iva</th>
-							<th scope="col">Valor Total</th>
-						</tr>
-						</thead>
-						<tbody>
-							<c:forEach var="lista" items="${listaDetalleVenta}">
+							</c:forEach>
+							<c:forEach var="lista1" items="${listaTotal}">
 								<tr>
-									<td>${lista.getCodigo_venta()}</td>
-									<td>${lista.getCodigo_producto()}</td>
-									<td>${lista.getCantidad_producto()}</td>	
-									<td>${lista.getValor_venta()}</td>								
-									<td>${lista.getValor_iva()}</td>
-									<td>${lista.getValor_total()}</td>
-									<td></td>
+									<td>${lista1.getTotal_venta()}</td>
 								</tr>
 							</c:forEach>				
 						</tbody>
 					</c:if>
+					
 				</table>
 			</div>
 		</div>

@@ -15,6 +15,26 @@ import javax.servlet.http.HttpServletResponse;
 public class Controlador extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
+	//********************Variables Generales**************************************************
+	double subtotal, totalapagar=0;
+	double precio=0, iva=0, acusubtotal=0, subtotaliva = 0, totalventas=0, totaltotal=0;
+	int cantidad=0, item = 0;
+	long numfac = 0;
+	String descripcion, cedulaCliente, codProducto, ciudad, fecha;
+	
+	Usuarios usuarios1 = new Usuarios();
+	List <Detalle_Venta> listaVentas = new ArrayList<>();
+	List <Ventas> listaTotal = new ArrayList<>();
+	Detalle_Venta detalle_venta = new Detalle_Venta();	
+	Consolidado consolidado = new Consolidado();
+	//*****************************************************************************************
+			
+	public Controlador() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	//******************Metodo para validar la cedula del Usuario*******************************
 	public boolean validarCedula(String id, HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException{		
 		try {
@@ -30,22 +50,6 @@ public class Controlador extends HttpServlet {
 			}
 		return false;
 		}
-			
-	public Controlador() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
-	//********************Variables Generales**************************************************
-	double precio, iva, valor_iva, subtotal, totalapagar, acusubtotal, subtotaliva = 0;
-	int cantidad, item = 0;
-	long numfac = 0;
-	String descripcion, cedulaCliente, codProducto;
-	
-	Usuarios usuarios = new Usuarios();
-	Detalle_Venta detalle_venta = new Detalle_Venta();
-	List <Detalle_Venta> listaVentas = new ArrayList<>();
-	//*****************************************************************************************
 	
 	//******************Metodo para buscar la cedula del Cliente*******************************
 	public void buscarCliente(String id, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -53,7 +57,6 @@ public class Controlador extends HttpServlet {
 			ArrayList<Clientes> listac = ClienteJSON.getJSON();
 			for (Clientes clientes: listac) {
 				if(clientes.getCedula_cliente().equals(id)) {
-					System.out.println(clientes.getNombre_cliente());
 					request.setAttribute("clienteSeleccionado", clientes);
 				}
 			}
@@ -91,18 +94,18 @@ public class Controlador extends HttpServlet {
 			detalle_venta.setValor_total(listaVentas.get(i).getValor_total());
 			detalle_venta.setValor_iva(listaVentas.get(i).getValor_iva());
 			
-			int respuesta = 0;
+			int respuesta1 = 0;
 			
 			try {
-				respuesta = Detalle_VentaJSON.postJSON(detalle_venta);
-				PrintWriter write = response.getWriter();
-				if(respuesta == 200) {
+				respuesta1 = Detalle_VentaJSON.postJSON(detalle_venta);
+				PrintWriter write1 = response.getWriter();
+				if(respuesta1 == 200) {
 					System.out.println("Registro grabado en Detalle Ventas: " + i);
 					request.getRequestDispatcher("Controlador?menu=Ventas&accion=default").forward(request, response);
 				}else {
-					write.println("Error Detalle Ventas: " + respuesta);
+					write1.println("Error Detalle Ventas: " + respuesta1);
 				}
-				write.close();
+				write1.close();
 				
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -113,7 +116,6 @@ public class Controlador extends HttpServlet {
 	//*****************************************************************************************
 	
 	//**************Método para generar el consecutivo de la factura de ventas*****************
-	
 	public Long generarConsecutivo() {
         long aux=0;
         try {
@@ -134,11 +136,72 @@ public class Controlador extends HttpServlet {
 	
 	//*****************************************************************************************
 	
+	//**************************Mostrar Fecha y Ciudad*************************************
+	public void mostrarFechaCiudad (HttpServletRequest request, HttpServletResponse response) throws
+						ServletException, IOException {
+		ciudad = request.getParameter("ciudad");
+		fecha = request.getParameter("fecha");
+		
+		request.setAttribute("ciudadSeleccionada", ciudad);
+		request.setAttribute("fechaSeleccionada", fecha);
+	}
+	//*************************************************************************************
+	
+	//*********************** Grabar Consolidado ********************************************
+	public void grabarConsolidado (HttpServletRequest request, HttpServletResponse response) throws
+						ServletException, IOException {
+		int respuesta = 0;
+		try {
+			respuesta = ConsolidadoJSON.postJSON(consolidado);
+			PrintWriter write = response.getWriter();
+			if(respuesta == 200) {
+				System.out.println("Registro grabado en consolidacion");
+				request.getRequestDispatcher("Controlador?menu=Ventas&accion=default").forward(request, response);
+				
+			} else {
+				write.println("Error de Consolidacion" + respuesta);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	//***************************************************************************************
+	
+	//*********************** Buscar Ventas por Ciudad ***************************************
+	public double mostrarTotalVentasCiudad(String ciudad) {
+	
+		double acTotalVentas=0;
+		System.out.println(ciudad);
+		try {
+			ArrayList<Consolidado> listac = ConsolidadoJSON.getJSON();
+			for(Consolidado consolidacion: listac) {
+				System.out.println(consolidacion.getCiudad_venta());
+				System.out.println(consolidacion.getTotal_ventas());
+				if(consolidacion.getCiudad_venta().equals(ciudad)) {
+					acTotalVentas = acTotalVentas + consolidacion.getTotal_ventas();
+				}
+			}
+			return acTotalVentas;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return acTotalVentas;
+		
+	}
+	//***************************************************************************************
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws
 						ServletException, IOException {	
 		
 		String menu=request.getParameter("menu");		
 		String accion=request.getParameter("accion");	
+		
+		//************Cedula del Usuario Activo *****************
+		String cedula_usuario_activo = request.getParameter("UsuarioActivo");
+		usuarios1.setCedula_usuario(cedula_usuario_activo);
+		request.setAttribute("usuarioSeleccionado1", usuarios1);
+		//*******************************************************
 		
 		switch (menu) {
 			case "New_usuarios":
@@ -179,6 +242,8 @@ public class Controlador extends HttpServlet {
 			break;
 			
 			case "Usuarios":
+				
+			
 				if (accion.equals("Listar")) {
 					try {
 						ArrayList<Usuarios> lista = UsuarioJSON.getJSON();
@@ -527,34 +592,38 @@ public class Controlador extends HttpServlet {
 					request.getRequestDispatcher("/Productos.jsp").forward(request, response);
 				break;
 				
-				case "Ventas":
-					//************Cedula del Usuario Activo *****************
-					String cedula_usuario_activo = request.getParameter("UsuarioActivo");
-					usuarios.setCedula_usuario(cedula_usuario_activo);
-					request.setAttribute("usuarioSeleccionado", usuarios);
-					//*******************************************************
+				case "Ventas":	
 					
 					//**********Enviar al formulario de ventas la cédula del usuario y numero de factura**************
-					request.setAttribute("usuarioSeleccionado", usuarios);
+					request.setAttribute("usuarioSeleccionado1", usuarios1);
 					request.setAttribute("numerofactura", numfac);
 					
 					//****************************************************************************
 					
 					if(accion.equals("BuscarCliente")) {
 						String id = request.getParameter("cedulacliente");
-						this.buscarCliente(id,request, response);
+						this.buscarCliente(id, request, response);
+						this.mostrarFechaCiudad(request, response);
+						
 					}else if(accion.equals("BuscarProducto")){
-						String id = request.getParameter("cedulacliente");
-						this.buscarCliente(id,request, response);
-						String cod = request.getParameter("codigoproducto");
-						this.buscarProducto(cod, request, response);
+						String id1 = request.getParameter("cedulacliente");												
+						String id2 = request.getParameter("codigoproducto");
+						this.buscarCliente(id1,request, response);
+						this.buscarProducto(id2, request, response);
+						this.mostrarFechaCiudad(request, response);
+						request.setAttribute("listaventas", listaVentas);
+						
 					}else if(accion.equals("AgregarProducto")){
 						String id = request.getParameter("cedulacliente");
 						this.buscarCliente(id,request, response);
+						this.mostrarFechaCiudad(request, response);
 						
 						detalle_venta = new Detalle_Venta();
+					
 						item++;
 						totalapagar=0;
+						totalventas=0;
+						
 						codProducto=request.getParameter("codigoproducto");
 						descripcion=request.getParameter("nombreproducto");
 						precio=Double.parseDouble(request.getParameter("precioproducto"));
@@ -562,7 +631,7 @@ public class Controlador extends HttpServlet {
 						iva= Double.parseDouble(request.getParameter("ivaproducto"));
 						
 						subtotal = precio*cantidad;
-						valor_iva = (subtotal*iva)/100;
+						iva = (subtotal*iva)/100;
 						
 						detalle_venta.setCodigo_detalle_venta(item);
 						detalle_venta.setCodigo_producto(codProducto);
@@ -570,7 +639,7 @@ public class Controlador extends HttpServlet {
 						detalle_venta.setCantidad_producto(cantidad);
 						detalle_venta.setPrecio_producto(precio);
 						detalle_venta.setCodigo_venta(numfac);
-						detalle_venta.setValor_iva(valor_iva);
+						detalle_venta.setValor_iva(iva);
 						detalle_venta.setValor_venta(subtotal);
 						listaVentas.add(detalle_venta);
 						
@@ -582,11 +651,14 @@ public class Controlador extends HttpServlet {
 						totalapagar=acusubtotal+subtotaliva;
 						detalle_venta.setValor_total(totalapagar);
 						
+						
+						
 						//primer parametro es como lo vamos a llamar desde el jsp / segundo atributo lo que se envia y como lo recibe el formulario 
 						request.setAttribute("listaventas", listaVentas);
 						request.setAttribute("totalsubtotal", acusubtotal);
 						request.setAttribute("totaliva", subtotaliva);
 						request.setAttribute("totalapagar", totalapagar);
+						
 					
 					}else if(accion.equals("GenerarVenta")) {
 						cedulaCliente=request.getParameter("cedulacliente");
@@ -596,18 +668,34 @@ public class Controlador extends HttpServlet {
 						
 						ventas.setCodigo_venta(Long.parseLong(numFact));
 						ventas.setCedula_cliente(cedulaCliente);
-						ventas.setCedula_usuario(usuarios.getCedula_usuario());
+						ventas.setCedula_usuario(usuarios1.getCedula_usuario());
 						ventas.setValor_venta(acusubtotal);
 						ventas.setIva_venta(subtotaliva);
 						ventas.setTotal_venta(totalapagar);
+						ventas.setFecha_venta(fecha);
+						ventas.setCiudad_venta(ciudad);
+						
+						consolidado.setCiudad_venta(ciudad);
+						consolidado.setFecha_venta(fecha);
+						consolidado.setTotal_ventas(totalapagar);
+						
+						for (int i=0; i<listaTotal.size(); i++) {
+							totalventas+= listaTotal.get(i).getTotal_venta();
+						}
+						
+						totaltotal = totalventas;
+						ventas.setTotal_venta(totaltotal);
+						request.setAttribute("totaltotal", totaltotal);
+						
 						
 						int respuesta=0;
 						try {
 							respuesta = VentaJSON.postJSON(ventas);
 							PrintWriter write = response.getWriter();
 							if(respuesta==200) {
-								System.out.println("Grabación exitosa" + respuesta);
+								this.grabarConsolidado(request, response);
 								this.grabarDetalle_Ventas(ventas.getCodigo_venta(), request, response);
+								System.out.println("Grabación exitosa" + respuesta);
 							}else {
 								write.println("Error Ventas:" + respuesta);
 							}
@@ -623,11 +711,10 @@ public class Controlador extends HttpServlet {
 					
 						
 					}else {
+						// ********* Muestro por primera vez el numero de la factura *****************
 						numfac = this.generarConsecutivo();
 						request.setAttribute("numerofactura", numfac);
-					}
-				
-					
+					}				
 					request.getRequestDispatcher("/Ventas.jsp").forward(request, response);
 				break;
 				
@@ -656,29 +743,38 @@ public class Controlador extends HttpServlet {
 						}
 					} else if (accion.equals("ReporteVentas")) {
 						try {
-							ArrayList<Ventas> lista = VentaJSON.getJSON();
+							ArrayList<Ventas> lista = VentaJSON.getJSON();							
 							opcion=3;
-							request.setAttribute("listaVentas", lista);
+							
+							request.setAttribute("listaTotal", totaltotal);	
+							request.setAttribute("listaVentas", lista);							
 							request.setAttribute("opcion", opcion);
 							
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-					} else if (accion.equals("ReporteDetalleVenta")) {
-						try {
-							ArrayList<Detalle_Venta> lista = Detalle_VentaJSON.getJSON();
-							opcion=4;
-							request.setAttribute("listaDetalleVenta", lista);
-							request.setAttribute("opcion", opcion);
-							
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
+					} 
 					request.getRequestDispatcher("/Reportes.jsp").forward(request, response);
 				break;
 				
+				case "Consolidado":
+					
+					double totalventascali=0, totalventasbogota=0, totalventasmedellin=0, totalventasgeneral=0;
+						totalventascali= mostrarTotalVentasCiudad("Cali");
+						totalventasbogota = mostrarTotalVentasCiudad("Bogota");
+						totalventasmedellin = mostrarTotalVentasCiudad("Medellin");
+						
+						totalventasgeneral = totalventascali + totalventasbogota + totalventasmedellin;
+						
+						request.setAttribute("totalventacali", totalventascali);
+						request.setAttribute("totalventabogota", totalventasbogota);
+						request.setAttribute("totalventamedellin", totalventasmedellin);
+						request.setAttribute("totalventageneral", totalventasgeneral);
+						
+						request.getRequestDispatcher("/ReporteConsolidado.jsp").forward(request, response);
+					break;
 
+				
 		}
 	}
 }

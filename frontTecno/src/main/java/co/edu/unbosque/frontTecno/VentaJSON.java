@@ -45,7 +45,9 @@ public class VentaJSON {
 					+ "\",\"cedula_usuario\": \""  + venta.getCedula_usuario() 
 					+ "\",\"iva_venta\":\"" + String.valueOf(venta.getIva_venta())
 					+ "\",\"total_venta\":\"" + String.valueOf(venta.getTotal_venta())
-					+ "\",\"valor_venta\":\"" + String.valueOf(venta.getValor_venta())
+					+ "\",\"valor_venta\":\"" + String.valueOf(venta.getValor_venta())					
+					+ "\",\"ciudad_venta\":\"" + venta.getCiudad_venta()
+					+ "\",\"fecha_venta\":\"" + venta.getFecha_venta()
 					+ "\"}";
 			
 			byte[] out = data.getBytes(StandardCharsets.UTF_8);
