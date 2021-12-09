@@ -20,7 +20,9 @@ import co.edu.unbosque.frontTecno.Clientes;
 public class ClienteJSON {
 	
 	private static URL url;
-	private static String sitio = "http://localhost:8081/";	
+	//private static String sitio = "http://localhost:8081/";	
+	private static String sitio = "http://18.224.66.193:8081/";
+	
 	
 	//*********Métodos que permite mostrar los registros de la tabla Clientes**************
 	public static ArrayList<Clientes> parsingClientes(String json) throws ParseException {

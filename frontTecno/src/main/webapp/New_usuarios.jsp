@@ -82,8 +82,9 @@
 
 			<div class="formulario__grupo formulario__grupo-btn-enviar">
 				<button type="submit" class="formulario__btn" name="accion" value="Agregar">Guardar</button>
-				<a class="form-btn" href="Inicio.jsp">Cancelar</a>
-				<input type="reset" class="formulario__btn" value="Cancelar" src="Inicio.jsp">
+				
+				<a type="submit" class="form__btn" href="Inicio.jsp">Cancelar</a>
+				
 				<p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Formulario enviado exitosamente!</p>
 			</div>	
 			<div style="color:=red;">

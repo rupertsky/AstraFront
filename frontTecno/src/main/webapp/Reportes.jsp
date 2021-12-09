@@ -27,7 +27,7 @@ crossorigin="anonymous">
 								<input type="submit" name="accion" value="ReporteUsuarios" class="btn btn-primary m-2">
 								<input type="submit" name="accion" value="ReporteClientes" class="btn btn-primary m-2">
 								<input type="submit" name="accion" value="ReporteVentas" class="btn btn-primary m-2">
-								<input type="submit" name="accion" value="ReporteDetalleVenta" class="btn btn-primary m-2 mr-2">
+								
 							</div>
 						</div>
 					</div>				
@@ -99,7 +99,7 @@ crossorigin="anonymous">
 							<th scope="col">Valor Ventas</th>
 							<th scope="col">Valor Iva</th>
 							<th scope="col">Valor Total</th>
-							<th scope="col">Total Ventas</th>
+							
 						</tr>
 						</thead>
 						<tbody>
@@ -109,15 +109,17 @@ crossorigin="anonymous">
 									<td>${lista.getCedula_cliente()}</td>
 									<td>${lista.getValor_venta()}</td>								
 									<td>${lista.getIva_venta()}</td>
-									<td>${lista.getValor_venta()}</td>
 									<td>${lista.getTotal_venta()}</td>
+									
+									
 								</tr>
+								
 							</c:forEach>
-							<c:forEach var="lista1" items="${listaTotal}">
 								<tr>
-									<td>${lista1.getTotal_venta()}</td>
+									<th scope="col">Total Ventas</th>
+									<td>${totaltotal}</td>
 								</tr>
-							</c:forEach>				
+									
 						</tbody>
 					</c:if>
 					

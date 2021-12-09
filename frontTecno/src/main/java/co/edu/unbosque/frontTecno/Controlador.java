@@ -190,7 +190,7 @@ public class Controlador extends HttpServlet {
 		
 	}
 	//***************************************************************************************
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws
 						ServletException, IOException {	
 		
@@ -646,15 +646,11 @@ public class Controlador extends HttpServlet {
 						for (int i=0; i<listaVentas.size(); i++) {
 							acusubtotal+=listaVentas.get(i).getValor_venta();
 							subtotaliva+=listaVentas.get(i).getValor_iva();
-							
 						}
 						totalapagar=acusubtotal+subtotaliva;
 						detalle_venta.setValor_total(totalapagar);
-						
-						
-						
 						//primer parametro es como lo vamos a llamar desde el jsp / segundo atributo lo que se envia y como lo recibe el formulario 
-						request.setAttribute("listaventas", listaVentas);
+						request.setAttribute("listaVentas", listaVentas);
 						request.setAttribute("totalsubtotal", acusubtotal);
 						request.setAttribute("totaliva", subtotaliva);
 						request.setAttribute("totalapagar", totalapagar);
@@ -678,15 +674,6 @@ public class Controlador extends HttpServlet {
 						consolidado.setCiudad_venta(ciudad);
 						consolidado.setFecha_venta(fecha);
 						consolidado.setTotal_ventas(totalapagar);
-						
-						for (int i=0; i<listaTotal.size(); i++) {
-							totalventas+= listaTotal.get(i).getTotal_venta();
-						}
-						
-						totaltotal = totalventas;
-						ventas.setTotal_venta(totaltotal);
-						request.setAttribute("totaltotal", totaltotal);
-						
 						
 						int respuesta=0;
 						try {
@@ -742,11 +729,15 @@ public class Controlador extends HttpServlet {
 							e.printStackTrace();
 						}
 					} else if (accion.equals("ReporteVentas")) {
+						double acutotalv = 0;
 						try {
 							ArrayList<Ventas> lista = VentaJSON.getJSON();							
 							opcion=3;
-							
-							request.setAttribute("listaTotal", totaltotal);	
+							for(Ventas venta: lista) {
+								acutotalv += venta.getTotal_venta();
+							}
+							System.out.println(acutotalv);
+							request.setAttribute("totaltotal", acutotalv);	
 							request.setAttribute("listaVentas", lista);							
 							request.setAttribute("opcion", opcion);
 							

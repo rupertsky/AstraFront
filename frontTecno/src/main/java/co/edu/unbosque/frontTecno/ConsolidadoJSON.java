@@ -17,7 +17,8 @@ import org.json.simple.parser.ParseException;
 
 public class ConsolidadoJSON {
 	private static URL url;
-	private static String sitio = "http://localhost:8084/";	
+	//private static String sitio = "http://localhost:8084/";	
+	private static String sitio = "http://18.224.66.193:8084/";	
 	
 	//*********Método que consume la API de guardar*********************************
 		public static int postJSON(Consolidado consolidado) throws IOException {

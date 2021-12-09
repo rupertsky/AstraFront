@@ -7,9 +7,7 @@
 <meta charset="ISO-8859-1">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
-	crossorigin="anonymous">
+	rel="stylesheet">
 <link rel="stylesheet" href="./css/usuarios.css">
 <title>Creacion de Usuario</title>
 </head>
@@ -29,12 +27,12 @@
 							<input type="hidden" name="txtid" value="${usuarioSeleccionado.get_id()}"> 
 							<label>Cedula:</label>
 							<input type="text" name="txtcedula" class="form-control"
-								value="${usuarioSeleccionado.getCedula_usuario()}" minlength="4" maxlength="14" required>
+								value="${usuarioSeleccionado.getCedula_usuario()}" min="4" max="14" required>
 						</div>
 						<div class="form-group" id="group__nombre">
 							<label>Nombre:</label> 
 							<input type="text" name="txtnombre"	class="form-control" 
-								value="${usuarioSeleccionado.getNombre_usuario()}" minlength="4" maxlength="30" required>
+								value="${usuarioSeleccionado.getNombre_usuario()}" min="4" max="30" required>
 						</div>
 						<div class="form-group" id="group__email">
 							<label>Email:</label> 
@@ -44,12 +42,12 @@
 						<div class="form-group" id="group__usuario">
 							<label>Usuario:</label> 
 							<input type="text" name="txtusuario" class="form-control" 
-								value="${usuarioSeleccionado.getUsuario()}" minlength="4" maxlength="14" required>
+								value="${usuarioSeleccionado.getUsuario()}" min="4" max="14" required>
 						</div>
 						<div class="form-group" id="group__password">
 							<label>Password:</label> 
 							<input type="password" name="txtpassword" class="form-control"
-								value="${usuarioSeleccionado.getPassword()}" minlength="4" maxlength="14" required>
+								value="${usuarioSeleccionado.getPassword()}" min="4" max="14" required>
 						</div>
 						<input type="submit" class="btn btn-primary mt-2" name="accion" value="Agregar"> 
 						<input type="submit" class="btn btn-success mt-2" name="accion" value="Actualizar">
