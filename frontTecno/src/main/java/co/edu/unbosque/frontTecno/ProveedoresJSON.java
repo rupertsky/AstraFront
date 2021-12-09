@@ -18,7 +18,8 @@ import org.json.simple.parser.ParseException;
 public class ProveedoresJSON {
 	
 	private static URL url;
-	private static String sitio = "http://localhost:8082/";
+	//private static String sitio = "http://localhost:8082/";
+	private static String sitio = "http://18.224.66.193:8085/";
 	
 	//*********Métodos que permite mostrar los registros de la tabla Proveedores**************
 		public static ArrayList<Proveedores> parsingProveedores(String json) throws ParseException {

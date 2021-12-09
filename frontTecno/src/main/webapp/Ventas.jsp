@@ -129,7 +129,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="lista" items="${listaventas}">
+							<c:forEach var="lista" items="${listaVentas}">
 								<tr>
 									<th>${lista.getCodigo_detalle_venta()}</th>
 									<td>${lista.getCodigo_producto()}</td>
